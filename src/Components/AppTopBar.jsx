@@ -20,6 +20,8 @@ import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { logoutUser } from "./services/api";
+import { useTranslation } from 'react-i18next'
+import { Trans, withTranslation } from 'react-i18next';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -64,7 +66,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const AppTopBar = ({ login }) => {
   const [anchorEl, setAnchorEl] = React.useState();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const { t } = useTranslation();
+  console.log(t('title'))
   const isMenuOpen = Boolean(anchorEl);
 
   const handleProfileMenuOpen = (event) => {
@@ -203,7 +206,7 @@ const AppTopBar = ({ login }) => {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            LIBERIN LMS
+         <Trans>Liberin LMS</Trans>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -303,4 +306,4 @@ const AppTopBar = ({ login }) => {
   );
 };
 
-export default AppTopBar;
+export default  withTranslation()(AppTopBar)

@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-
+import lock from '../../assets/images/lock.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { Box, capitalize, Chip, Rating } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -27,6 +27,16 @@ const CourseCard=({course})=> {
  
   return (
     <Card elevation={4} className="cardWraper">
+      {course?.lessons.length>1?"":<div className='coomingSoon'>
+     <img
+     
+      
+        src={lock}
+        className="lock"
+      />
+      <Typography>Cooming-soon</Typography>
+     </div>}
+     
      
       <CardMedia
         component="img"
