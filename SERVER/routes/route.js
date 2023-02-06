@@ -5,6 +5,7 @@ import {
   deleteLessons,
   demo,
   getAdminAllCourse,
+  getAllCourse,
   getSingleCourse,
 } from "../controller/courseController.js";
 import {
@@ -12,6 +13,7 @@ import {
   userLogin,
   userLogout,
   currentUser,
+  resetUserPassword,
 } from "../controller/usercontroller.js";
 import { isAuthenticated } from "../middleware/index.js";
 
@@ -26,7 +28,10 @@ router.route("/profile").get(isAuthenticated, currentUser);
 
 router.route("/course/add").post(isAuthenticated, addNewCourse);
 router.route("/course/single/:slug").get(getSingleCourse);
-router.route("/course").get(getAdminAllCourse);
+router.route("/course").get(getAllCourse);
+router.route("/reset").post(isAuthenticated, resetUserPassword);
+// ADMIN ROUTE
+router.route("/admin/course").get(isAuthenticated, getAdminAllCourse);
 router.route("/course/lesson/add/:id").post(isAuthenticated, addLesson);
 // dcelete lessons
 router

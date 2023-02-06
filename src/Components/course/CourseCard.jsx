@@ -33,6 +33,7 @@ const CourseCard=({course})=> {
       
         src={lock}
         className="lock"
+        alt="lock"
       />
       <Typography>Cooming-soon</Typography>
      </div>}
@@ -45,14 +46,15 @@ const CourseCard=({course})=> {
       />
       <CardContent>
       {/* content here */}
+      <Chip className='chip' label="Best Seller" size="small"  color="success" />
       <Link to={`course-details/${course?.slug}`}>
       <Typography variant='h6' sx={{textTransform:"capitalize"}} >  {course?.title}</Typography>
       </Link>
 
       <Typography variant='subtitle2' >{course?.instructor.name}</Typography>
-      <Box sx={{display:'flex',gap:'3px 4px'}}>
+      <Box sx={{display:'flex',gap:'3px 4px',alignItems:'center'}}>
       <Typography variant='body2' className="mt-1 text-warning">5.0</Typography>
-      <Rating name="read-only"   value={5} readOnly />
+      <Rating name="read-only" size='small'   value={5} readOnly />
       </Box>
       <div className='d-flex align-items-center mt-3 '> <Chip label="Free" /></div>
     

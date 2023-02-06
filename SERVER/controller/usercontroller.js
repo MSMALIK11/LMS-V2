@@ -93,3 +93,11 @@ export const currentUser = async (req, res) => {
     console.log("current user not found ", error);
   }
 };
+
+// RESET PASSWORD
+export const resetUserPassword = async (req, res) => {
+  const { password } = req.body;
+  const userId = req.user._id;
+  console.log("user ID", userId);
+  console.log("new Password", password);
+};

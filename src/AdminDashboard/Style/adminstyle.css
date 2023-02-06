@@ -1,0 +1,15 @@
+.imagePreview img {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.closePeview {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  font-size: 14px;
+  display: none;
+  transition: all 0.2s ease-in;
+}
+.imagePreview:hover .closePeview {
+  display: block;
+}

@@ -50,7 +50,7 @@ const Signup = () => {
 
     if (res?.data.message === "login successfully completed") {
       alert("Login Successsfully 😎👌");
-      localStorage.setItem("user", JSON.stringify(res.data));
+      localStorage.setItem("user", JSON.stringify(res.data.token));
       navigate("/");
       return;
     }

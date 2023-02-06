@@ -31,11 +31,23 @@ export const addNewCourse = async (req, res) => {
   }
 };
 
-// get all course  admin
-
-export const getAdminAllCourse = async (req, res) => {
+// get all course
+export const getAllCourse = async (req, res) => {
   try {
     const course = await Course.find().populate("lessons instructor");
+    console.log("lessons", course.lessons);
+
+    res.json({ success: true, course });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+// GET ALL ADMIN COURSE
+export const getAdminAllCourse = async (req, res) => {
+  try {
+    const course = await Course.find(req.user._id).populate(
+      "lessons instructor"
+    );
     console.log("lessons", course.lessons);
 
     res.json({ success: true, course });
@@ -125,8 +137,6 @@ export const deleteLessons = async (req, res) => {
 
   course.lessons.forEach((item, index) => {
     if (lessonId.toString() === item._id.toString()) {
-      console.log("leson found ", element);
-
       course.lessons.splice(index, 1);
       return res.status(200).json("lessons deleted successfully");
     } else {

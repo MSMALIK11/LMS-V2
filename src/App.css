@@ -98,6 +98,7 @@ p {
 .cardWraper {
   object-fit: cover;
   width: 100%;
+  position: relative;
 }
 
 .courseBanner {
@@ -164,4 +165,13 @@ p {
 
 .sessionWraper {
   display: flex;
+}
+.chip {
+  position: absolute;
+  top: 5px;
+  right: 3px;
+}
+
+.closePeview {
+  margin-left: auto;
 }

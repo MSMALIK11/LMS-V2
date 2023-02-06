@@ -1,17 +1,18 @@
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
-dotenv.config({ path: "./config/.env" });
-const app = express();
+import expressFileupload from "express-fileupload";
+import cookieParser from "cookie-parser";
+
 import cors from "cors";
 
-import cookieParser from "cookie-parser";
 import csrf from "csurf";
-// handle image data
-import expressFileupload from "express-fileupload";
-
 import { connection } from "./DATABABSE/db.js";
 import router from "./routes/route.js";
+dotenv.config({ path: "./config/.env" });
+// handle image data
+
+const app = express();
 // handle cross-origin-request
 
 // app.use(

@@ -11,7 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
@@ -20,8 +21,9 @@ import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { logoutUser } from "./services/api";
-import { useTranslation } from 'react-i18next'
-import { Trans, withTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { Trans, withTranslation } from "react-i18next";
+import MiniDrawer from "../SideDrawer/SideDrawer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,11 +65,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const AppTopBar = ({ login }) => {
+const AppTopBar = () => {
   const [anchorEl, setAnchorEl] = React.useState();
+  const [login, setLogin] = React.useState(localStorage.getItem("user"));
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
   const { t } = useTranslation();
-  console.log(t('title'))
+
   const isMenuOpen = Boolean(anchorEl);
 
   const handleProfileMenuOpen = (event) => {
@@ -188,86 +192,92 @@ const AppTopBar = ({ login }) => {
   //   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-         <Trans>Liberin LMS</Trans>
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          {/*  registration  */}
-
-         
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-{
-  !login &&    <Link
-  to="/signup"
-  style={{ textDecoration: "none", color: "inherit" }}
->
-  <IconButton
-    size="large"
-    aria-label="show 4 new mails"
-    color="inherit"
-  >
-    <ExitToAppIcon />
-  </IconButton>
-</Link>
-}
-
-         
-            {login &&  <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-              onClick={handleLogout}
-            >
-              <PowerSettingsNewIcon />
-            </IconButton>}
-
-           
-
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
+              edge="start"
               color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
             >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
+              <MenuIcon />
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            {/* <IconButton
+              <Trans>Liberin LMS</Trans>
+            </Typography>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            {/*  registration  */}
+
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              {!login && (
+                <Link
+                  to="/signup"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                  >
+                    <ExitToAppIcon />
+                  </IconButton>
+                </Link>
+              )}
+
+{login && <IconButton>
+  <Link to="/admin">
+  <AdminPanelSettingsIcon  size="large"
+                
+                  color="white" sx={{color:'#fff'}} />
+  </Link>
+  </IconButton>}
+              {login && (
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                  onClick={handleLogout}
+                >
+                  <PowerSettingsNewIcon />
+                </IconButton>
+              )}
+
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge badgeContent={4} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              {/* <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -276,34 +286,36 @@ const AppTopBar = ({ login }) => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             > */}
-            {/* <AccountCircle /> */}
-            {login &&   <Avatar
-              sx={{ width: 10, height: 10 }}
-              {...stringAvatar(`MR SHOAIB`)}
-            /> }
-          
-            
-          </Box>
+              {/* <AccountCircle /> */}
+              {login && (
+                <Avatar
+                  sx={{ width: 10, height: 10 }}
+                  {...stringAvatar(`MR SHOAIB`)}
+                />
+              )}
+            </Box>
 
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
 
-      {/* {renderMobileMenu} */}
-      {/* {renderMenu} */}
-    </Box>
+        {/* {renderMobileMenu} */}
+        {/* {renderMenu} */}
+      </Box>
+   
+    </>
   );
 };
 
-export default  withTranslation()(AppTopBar)
+export default withTranslation()(AppTopBar);

@@ -1,6 +1,14 @@
 import axios from "axios";
 const hostname = "http://localhost:8000";
 
+const config = {
+  headers: {
+    authorization: JSON.parse(localStorage.getItem("user")),
+  },
+};
+
+console.log(config);
+
 // ===========================================================
 // =============GET ALL COURSE API ===========================
 export const fetchAllCourse = async () => {
@@ -29,6 +37,15 @@ export const signupUser = async (val, data) => {
 
 export const logoutUser = async () => {
   const res = await axios.get(`${hostname}/api/logout`);
+
+  return res.data;
+};
+
+// ===========================================================
+// =============GET ALL ADMIN COURSE===================================
+
+export const fetchAllAdminCourse = async () => {
+  const res = await axios.get(`${hostname}/api/admin/course`, config);
 
   return res.data;
 };
