@@ -13,7 +13,7 @@ const HomePage = () => {
 const getAllCourse=async()=>{
   const res=await fetchAllCourse();
 
- 
+
   if(res){
     setCourses(res)
   }
@@ -26,6 +26,7 @@ useEffect(()=>{
 
   return (
     <div>
+
       <HomeBanner />
       <CategoryTab />
         <div className="mt-4 px-4">
@@ -43,8 +44,8 @@ useEffect(()=>{
             }
           </Grid>
 
-     
-       
+
+
         </div>
 
     </div>

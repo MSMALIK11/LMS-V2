@@ -5,7 +5,7 @@ import Lesson from "../model/lesson.js";
 // const file = req.files.image[0].tempFilePath;
 
 export const addNewCourse = async (req, res) => {
-  const { title, description, slug } = req.body;
+  const { title, description, slug, category } = req.body;
   const file = req.files.image.tempFilePath;
   console.log("image file", file);
 
@@ -19,6 +19,7 @@ export const addNewCourse = async (req, res) => {
     const course = await Course.create({
       title,
       description,
+      category,
       slug: slug,
       instructor: req.user._id,
       image: { url: result.secure_url, public_id: result.public_id },

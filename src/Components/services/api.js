@@ -6,8 +6,13 @@ const config = {
     authorization: JSON.parse(localStorage.getItem("user")),
   },
 };
-
-console.log(config);
+const config2 = {
+  withCredentials: true,
+  // headers: {
+  //   authorization: JSON.parse(localStorage.getItem("user")),
+  // },
+};
+//
 
 // ===========================================================
 // =============GET ALL COURSE API ===========================
@@ -41,11 +46,22 @@ export const logoutUser = async () => {
   return res.data;
 };
 
-// ===========================================================
+// ===================================================================
 // =============GET ALL ADMIN COURSE===================================
+// =====================================================================
 
 export const fetchAllAdminCourse = async () => {
-  const res = await axios.get(`${hostname}/api/admin/course`, config);
+  const res = await axios.get(`${hostname}/api/admin/course`, config2);
 
   return res.data;
+};
+
+// ====================================================================
+// =============CREATE NEW COURSE======================================
+// =====================================================================
+export const createNewCourse = async (course,img,slug) => {
+  console.log('config',config)
+  const res = await axios.post(`${hostname}/api/course/add`, course, slug,img,config2);
+
+  return res;
 };

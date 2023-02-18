@@ -2,23 +2,26 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function Category() {
+const options = ['Web Development', 'Software Development',"Android Development"];
+
+export default function Category({handleCategory}) {
+ 
+
   return (
-    <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={top100Films}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Category" />}
-    />
+    <div>
+     
+      <Autocomplete
+      name="category"
+    
+        onChange={
+          handleCategory}
+  
+        onInputChange={handleCategory}
+        id="controllable-states-demo"
+        options={options}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Choose Category" />}
+      />
+    </div>
   );
 }
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { label: 'Web Development', year: 1994 },
-  { label: 'Software Development', year: 1972 },
-  { label: 'Android Development', year: 1974 },
- 
- 
-];

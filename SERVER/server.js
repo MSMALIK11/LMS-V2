@@ -15,13 +15,13 @@ dotenv.config({ path: "./config/.env" });
 const app = express();
 // handle cross-origin-request
 
-// app.use(
-//   cors({
-//     origin:true,
-//     credentials: true,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin:true,
+    credentials: true,
+  })
+);
+// app.use(cors());
 app.use(express.json());
 app.use(expressFileupload({ useTempFiles: true }));
 app.use(cookieParser());

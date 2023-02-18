@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import User from "./signupmodel.js";
 
-
 const courseSchema = new mongoose.Schema(
   {
     title: {
@@ -12,6 +11,9 @@ const courseSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    category: {
+      type: String,
+    },
     slug: {
       type: String,
       lowercase: true,
@@ -21,7 +23,7 @@ const courseSchema = new mongoose.Schema(
       url: String,
       public_id: String,
     },
- 
+
     lessons: [
       {
         type: mongoose.Schema.Types.ObjectId,

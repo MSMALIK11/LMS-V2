@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import "./AdminDashboard/Style/adminstyle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,19 +10,21 @@ import Signup from "./Components/registration/Signup";
 import CourseDetails from "./pages/CourseDetails";
 import LecturesSessions from "./pages/Sessions/LecturesSessions";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import { changeLanguage } from "i18next";
+
 import AdminDashboard from "./AdminDashboard/AdminDashboard";
 import AdminCourses from "./AdminDashboard/AdminCourses/AdminCourses";
 import AddCourse from "./AdminDashboard/AddCourse/AddCourse";
-
+import axios from "axios";
+axios.defaults.withCredentials = true;
 function App() {
   const [user, setUser] = useState([]);
-  const [login, setLogin] = useState(false);
-  const navigate = useNavigate();
+  const [login, setLogin] = useState(true);
+  // const navigate = useNavigate();
   // useEffect(() => {
-  //   const res = JSON.parse(localStorage.getItem("user"));
+  //   const res = JSON.parse(localStorage.getItem("token"));
   //   if (res) {
   //     console.log("rees", res);
+  //     setLogin(res)
   //     setUser(res);
   //   }
   // }, [login, user]);
@@ -31,7 +33,7 @@ function App() {
     <div className="App">
       <AppTopBar login={login} />
       <Routes>
-        <Route path="/" element={<ProtectedRoute />}>
+        <Route path="/" element={<ProtectedRoute  />}>
           <Route path="/" element={<HomePage />} />
           <Route path="course-details/:title" element={<CourseDetails />} />
           <Route
@@ -40,6 +42,7 @@ function App() {
           />
         </Route>
         <Route />
+
         <Route path="/admin" element={<AdminDashboard />}>
           <Route path="/admin" element={<Navigate replace to="course" />} />
           <Route path="course" element={<AdminCourses />} />

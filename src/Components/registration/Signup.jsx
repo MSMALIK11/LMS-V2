@@ -5,12 +5,13 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import Email from "@mui/icons-material/Email";
 import Lock from "@mui/icons-material/LockRounded";
 import { signupUser } from "../services/api";
+import { useCookies } from "react-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const state = {
   name: "",
-  email: "",
-  password: "",
+  email: "adam@gmail.com",
+  password: "12341234",
 };
 
 const footerText = {
@@ -20,7 +21,7 @@ const footerText = {
 const Signup = () => {
   const [user, setUser] = React.useState(state);
   const [error, setError] = React.useState(false);
-
+  const [cookies, setCookie] = useCookies(["token"]);
   const [isSignup, setIsSignup] = React.useState(false);
 
   const navigate = useNavigate();
@@ -50,7 +51,8 @@ const Signup = () => {
 
     if (res?.data.message === "login successfully completed") {
       alert("Login Successsfully 😎👌");
-      localStorage.setItem("user", JSON.stringify(res.data.token));
+      setCookie("token", res.data.token);
+      localStorage.setItem("token", JSON.stringify(res.data.token));
       navigate("/");
       return;
     }
