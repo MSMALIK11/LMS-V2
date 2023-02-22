@@ -2,6 +2,7 @@ import express from "express";
 import {
   addLesson,
   addNewCourse,
+  deleteCourse,
   deleteLessons,
   demo,
   getAdminAllCourse,
@@ -33,6 +34,8 @@ router.route("/reset").post(isAuthenticated, resetUserPassword);
 // ADMIN ROUTE
 router.route("/admin/course").get(isAuthenticated, getAdminAllCourse);
 router.route("/course/lesson/add/:id").post(isAuthenticated, addLesson);
+// DELETE COURSE ROUTE
+router.delete('/admin/course/:id',isAuthenticated,deleteCourse)
 // dcelete lessons
 router
   .route("/course/lesson/:id/:lessonId")

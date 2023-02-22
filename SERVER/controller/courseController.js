@@ -7,9 +7,6 @@ import Lesson from "../model/lesson.js";
 export const addNewCourse = async (req, res) => {
   const { title, description, slug, category } = req.body;
   const file = req.files.image.tempFilePath;
-  console.log("image file", file);
-
-  console.log("body", req.body);
 
   try {
     const result = await cloudinary.v2.uploader.upload(file, {
@@ -127,8 +124,31 @@ export const addLesson = async (req, res) => {
   }
 };
 
-// delete lession from course
+// DELETE COURSE
+export const deleteCourse=async(req,res)=>{
+  const id=req.params;
+  console.log('id',id)
+  const isExist=await Course.findOneAndDelete(id);
+  if(!isExist){
+    return res.status(200).json({
+      success: false,
+      message:`something went wrong`,
+    });
 
+  }
+
+  console.log("isExist",isExist)
+
+  return res.status(200).json({
+    success: true,
+    message:`${isExist.title} course deleted successfully`,
+  });
+
+
+
+}
+
+// delete lesson from course
 export const deleteLessons = async (req, res) => {
   const { id, lessonId } = req.params;
 
@@ -176,3 +196,5 @@ export const getSingleCourse = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+
